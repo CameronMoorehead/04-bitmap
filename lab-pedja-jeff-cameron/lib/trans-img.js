@@ -1,15 +1,16 @@
 'use strict';
 
-const transImg = module.exports {};
+const transImg = module.exports = {};
 
-transImg.transFile(`${__dirname}/__test__/assets/house.bmp`, (error, data) => {
-  if(error) {
-    console.error(error);
-    return;
-  }
-  let colorTable = data.colorTable;
+transImg.transFile = (transformName, constructedBitmap, callback) => {
+  console.log(constructedBitmap.colorTable);
+
+  let colorTable = constructedBitmap.colorTable;
+
   for(let i = 0; i < colorTable.length; i+=4){
-    colorTable[i+1] = 0;
+    colorTable[i+2] = 0;
   }
-  return colorTable;
-});
+  console.log(constructedBitmap.colorTable);
+
+  callback(null,constructedBitmap);
+};
